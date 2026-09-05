@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class ApexDinosaur extends Dinosaur {
     private static float defaultHealth = 20f;
-    private static float defaultSpeed = 5f;
+    private static int defaultSpeed = 5;
     private static int defaultHunger = 10; //seconds before dying?
     private static int defaultDamage = 5;
 
@@ -25,33 +25,33 @@ public class ApexDinosaur extends Dinosaur {
         g2.setColor(new Color(150, 50, 60));
  
         // Body (oval)
-        g2.fillOval(posX, posY - 40, 100, 60);
+        g2.fillOval(x, y - 40, 100, 60);
  
         // Tail (triangle-ish using polygon)
-        int[] tailX = {posX, posX - 40, posX};
-        int[] tailY = {posY - 30, posY - 10, posY};
+        int[] tailX = {x, x - 40, x};
+        int[] tailY = {y - 30, y - 10, y};
         g2.fillPolygon(tailX, tailY, 3);
  
         // Neck + head
-        g2.fillOval(posX + 80, posY - 80, 30, 50);   // neck
-        g2.fillOval(posX + 95, posY - 100, 35, 30);  // head
+        g2.fillOval(x + 80, y - 80, 30, 50);   // neck
+        g2.fillOval(x + 95, y - 100, 35, 30);  // head
  
         // Legs
-        g2.fillRect(posX + 15, posY + 10, 12, 30);
-        g2.fillRect(posX + 65, posY + 10, 12, 30);
+        g2.fillRect(x + 15, y + 10, 12, 30);
+        g2.fillRect(x + 65, y + 10, 12, 30);
  
         // Spikes on back
         g2.setColor(new Color(30, 100, 30));
         for (int i = 0; i < 4; i++) {
-            int sx = posX + 20 + i * 18;
+            int sx = x + 20 + i * 18;
             int[] spikeX = {sx, sx + 8, sx + 16};
-            int[] spikeY = {posY - 40, posY - 55, posY - 40};
+            int[] spikeY = {y - 40, y - 55, y - 40};
             g2.fillPolygon(spikeX, spikeY, 3);
         }
  
         // Eye
         g2.setColor(Color.BLACK);
-        g2.fillOval(posX + 112, posY - 95, 4, 4);
+        g2.fillOval(x + 112, y - 95, 4, 4);
     }    
     
 }

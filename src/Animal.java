@@ -1,19 +1,30 @@
-public class Animal { //parent class for all animals
+import java.awt.*;
+
+abstract class Animal { //parent class for all animals
     float health;
     float reproductionCooldown;
     int damage;
     int hunger;
     float speed;
     int direction = Math.clamp(0, -1, 1);
-    int posX;
-    int posY;
+    int x; //current x position
+    int y; //current y positino
+    int dx; // direction or speed for x
+    int dy; // direction or speed for y
 
 
     public void takeDamage(float damage) {
         health -= damage;
     }
 
-    public void move(){
+    public void update(){
+        x += dx;
+        y += dy;
+
         
+    }
+
+    void draw(Graphics2D g2) {
+        System.out.println("this is the abstract class method, downcast and use the subclasses methods");
     }
 }
