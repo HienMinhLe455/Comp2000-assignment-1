@@ -17,10 +17,16 @@ abstract class Animal { //parent class for all animals
         health -= damage;
     }
 
-    public void update(){
+    public void update(int screenWidth, int screenHeight){
         x += dx;
         y += dy;
 
+        if(x <= 0 || x >= screenWidth) {
+            dx = -dy;
+        }
+        if(y <= 0 || y >= screenHeight) {
+            dy = -dy;
+        }
         
     }
 
