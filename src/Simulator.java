@@ -17,6 +17,7 @@ public class Simulator extends JPanel {
         //add some initial dinosaurs and cavemen
         createDinosaur(getWidth()/2, getHeight() /2);
         createCaveman(10, 100);
+
         
         timer = new Timer(16, e -> {
                 for(int i = 0; i < animals.size(); i++) {
@@ -40,12 +41,12 @@ public class Simulator extends JPanel {
     }    
     
     
-    public void createDinosaur(int SpawnX, int SpawnY) {
-            animals.add(new Dinosaur(SpawnX, SpawnY));
+    public void createDinosaur(int spawnX, int spawnY) {
+            animals.add(new Dinosaur(spawnX, spawnY));
         }
     
-    public void createCaveman(int SpawnX, int SpawnY) {
-        animals.add(new Caveman(SpawnX, SpawnY));
+    public void createCaveman(int spawnX, int spawnY) {
+        animals.add(new Caveman(spawnX, spawnY));
     }
     
 }
