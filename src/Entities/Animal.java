@@ -33,5 +33,11 @@ public class Animal { // parent class for all animals
     }
 
     //
+    public void sleep() {
+        this.health += 10;
+    }
+
+    public void eat(item meat)
+    
     
 }
