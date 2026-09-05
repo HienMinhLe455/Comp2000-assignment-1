@@ -14,7 +14,6 @@ public class Main {
         frame.add(new Simulator());
         frame.setVisible(true);
 
-
-
+        
     }
 }
