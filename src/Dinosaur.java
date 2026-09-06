@@ -1,14 +1,14 @@
 import java.awt.*;
+import java.util.List;
 
 
 public class Dinosaur extends Animal implements AnimalBehaviours {
 
     //Dinosaur stats can change later for balancing
     private static float defaultHealth = 10f;
-    private static int defaultSpeed = 5;
-    //private static int defaultHunger = 10; //seconds before dying?
+    private static int defaultSpeed = 2;
     private static int defaultDamage = 2;
-    private static int defaultMaxHunger = 1000;
+    private static int defaultMaxHunger = 800;
     private static int defaultFoodValue = 400;
 
 
@@ -31,8 +31,8 @@ public class Dinosaur extends Animal implements AnimalBehaviours {
     @Override
     public void setStats(){
         this.health = defaultHealth;
-        this.dx = defaultSpeed;
-        this.dy = defaultSpeed;
+        this.dx = (Math.random() < 0.5 ? -1 : 1) * defaultSpeed;
+        this.dy = (Math.random() < 0.5 ? -1 : 1) * defaultSpeed;
         this.hunger = defaultMaxHunger;
         this.maxHunger = defaultMaxHunger;
         this.foodValue = defaultFoodValue;
@@ -76,5 +76,50 @@ public class Dinosaur extends Animal implements AnimalBehaviours {
         // Eye
         g2.setColor(Color.BLACK);
         g2.fillOval(x + 56, y - 48, 2, 2);
+
+        // Stat
+        drawStats(g2);
+    }
+
+    @Override
+    public void update(int screenWidth, int screenHeight) {
+        // Nếu chưa có danh sách animals để quét thì di chuyển bình thường
+        // (Hoặc nếu không đói thì cứ đi dạo ngẫu nhiên)
+        super.update(screenWidth, screenHeight);
+    }
+
+    // if hungry => go to the nearest caveman
+    public void trackNearestCaveman(List<Animal> animals) {
+        if (this.isHungry == false) return;
+
+        Caveman nearestCaveman = null;
+        double minDistance = Double.MAX_VALUE;
+
+        // Find nearest caveman from animal list
+        for (int i = 0; i < animals.size(); i++) {
+            Animal a = animals.get(i);
+            if (a instanceof Caveman && a.isDead() == false) {
+                double dist = this.getDistanceTo(a);
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    nearestCaveman = (Caveman) a;
+                }
+            }
+        }
+
+        // change direction to nearest caveman
+        if (nearestCaveman != null) {
+            if (this.x < nearestCaveman.x) {
+                this.dx = Math.abs(this.speed > 0 ? (int)this.speed : 3);
+            } else {
+                this.dx = -Math.abs(this.speed > 0 ? (int)this.speed : 3);
+            }
+
+            if (this.y < nearestCaveman.y) {
+                this.dy = Math.abs(this.speed > 0 ? (int)this.speed : 3);
+            } else {
+                this.dy = -Math.abs(this.speed > 0 ? (int)this.speed : 3);
+            }
+        }
     }
 }

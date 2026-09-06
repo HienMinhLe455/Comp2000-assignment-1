@@ -56,6 +56,9 @@ public class ApexDinosaur extends Dinosaur {
         // Eye
         g2.setColor(Color.BLACK);
         g2.fillOval(x + 56, y - 48, 2, 2);
+
+        // Stat
+        drawStats(g2);
     }    
     
 }

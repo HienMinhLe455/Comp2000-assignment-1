@@ -4,10 +4,10 @@ import java.awt.*;
 public class Caveman extends Animal implements AnimalBehaviours{
     // stats can change later for balancing
     private static float defaultHealth = 10f;
-    private static int defaultSpeed = 5;
+    private static int defaultSpeed = 2;
     //private static int defaultHunger = 10; //seconds before dying?
     private static int defaultDamage = 2;
-    private static int defaultMaxHunger = 1000;
+    private static int defaultMaxHunger = 800;
     private static int defaultFoodValue = 150;
 
     Caveman(){
@@ -30,6 +30,8 @@ public class Caveman extends Animal implements AnimalBehaviours{
     public void setStats(){
         this.health = defaultHealth;
         this.speed = defaultSpeed;
+        this.dx = (Math.random() < 0.5 ? -1 : 1) * defaultSpeed;
+        this.dy = (Math.random() < 0.5 ? -1 : 1) * defaultSpeed;
         this.hunger = defaultMaxHunger;
         this.maxHunger = defaultMaxHunger;
         this.foodValue = defaultFoodValue;
@@ -58,6 +60,9 @@ public class Caveman extends Animal implements AnimalBehaviours{
         // Legs
         g2.drawLine(x + 3, y + 14, x - 1, y + 20);
         g2.drawLine(x + 3, y + 14, x + 7, y + 20);
+        
+        // Stat
+        drawStats(g2);
     }
 
 }
