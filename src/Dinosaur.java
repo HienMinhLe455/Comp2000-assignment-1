@@ -83,8 +83,7 @@ public class Dinosaur extends Animal implements AnimalBehaviours {
 
     @Override
     public void update(int screenWidth, int screenHeight) {
-        // Nếu chưa có danh sách animals để quét thì di chuyển bình thường
-        // (Hoặc nếu không đói thì cứ đi dạo ngẫu nhiên)
+        // move randomly until hungry
         super.update(screenWidth, screenHeight);
     }
 
