@@ -20,7 +20,7 @@ public class Volcano extends Zone {
     public void update() {
         if(errupting == true && lavaRadius < 500) {
 
-                lavaRadius += 10;
+                lavaRadius += 1;
             }
         }
     
@@ -28,6 +28,7 @@ public class Volcano extends Zone {
 
     @Override
     public void draw(Graphics2D drawing) { //draws the shape of the volcano
+        //volcano base
         drawing.setColor(new Color(90, 70, 60));
         int[] volcX = {x, x - r, x + r};
         int[] volcY = {y - r, y + r, y + r};
@@ -35,8 +36,8 @@ public class Volcano extends Zone {
 
 
 
-
-        drawing.setColor(new Color(100,10,10));
+        //lava
+        drawing.setColor(new Color(100,10,10)); 
         int lavaX = x - lavaRadius;
         int lavaY = (y-r) - lavaRadius;;
         drawing.fillOval(lavaX, lavaY, lavaRadius *2, lavaRadius *2);
