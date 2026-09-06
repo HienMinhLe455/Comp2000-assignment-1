@@ -7,7 +7,7 @@ public class Volcano extends Zone {
     int lavaRadius;
     boolean errupting = false;
     int tickCount = 0;
-    
+
     // tick rate for timing on when the volcano errupts
 
     Volcano(int spawnX, int spawnY, int radius, int lavaRadius) {
@@ -19,19 +19,19 @@ public class Volcano extends Zone {
     }
 
     @Override
-    public void update() { //increases the size of the lava while its errupting
+    public void update() { // increases the size of the lava while its errupting
         tickCount++;
-        if(tickCount >= 1875) {
+        if (tickCount >= 1000) { // tick count is set to ~10 seconds change accordingly
             errupting = true;
         }
-        if (errupting == true && lavaRadius < 500) {
+        if (errupting && lavaRadius < 500) {
 
-            lavaRadius += 1;
+            lavaRadius += 10;
         }
     }
 
     @Override
-    public boolean contains(int checkX, int checkY) { //checks if an animal is within the lava radius
+    public boolean contains(int checkX, int checkY) { // checks if an animal is within the lava radius
         if (!errupting) {
             return false;
         }

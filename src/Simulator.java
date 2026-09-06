@@ -18,7 +18,8 @@ public class Simulator extends JPanel {
         createCaveman(210, 200);
         createCaveman(220, 200);
         createCaveman(500, 500);
-        createVolcano(400, 300, 150, 40);
+        createVolcano(400, 300, 150, 0);
+        createCave(1500,1000);
 
         timer = new Timer(16, e -> {
             updateSimulation();
@@ -223,6 +224,10 @@ public class Simulator extends JPanel {
 
     public void createVolcano(int spawnX, int spawnY, int radius, int lavaRad) {
         environment.add(new Volcano(spawnX, spawnY, radius, lavaRad));
+    }
+
+    public void createCave(int spawnX, int spawnY) {
+        environment.add(new Cave(spawnX,spawnY));
     }
 
     public void createDinosaur(int spawnX, int spawnY) {
