@@ -41,7 +41,7 @@ public class Volcano extends Zone {
     }
 
     @Override
-    public void draw(Graphics2D drawing) { // draws the shape of the volcano
+    public void draw(Graphics2D drawing) { // draws the shape of the volcano and lava
         // volcano base
         drawing.setColor(new Color(90, 70, 60));
         int[] volcX = { x, x - r, x + r };

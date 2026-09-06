@@ -91,7 +91,8 @@ public class Simulator extends JPanel {
     }
 
     private void dinoCavemanCombat(Dinosaur dino, Caveman caveman) {
-        if (dino.isHungry && dino.attackCooldown == 0 && caveman.attackCooldown == 0) {
+        Cave cave = (Cave) environment.get(1); 
+        if (!cave.contains(caveman.x, caveman.y) && dino.isHungry && dino.attackCooldown == 0 && caveman.attackCooldown == 0) { //added to check if caveman is within the cave safe zone
             List<Caveman> fighters = new ArrayList<>(); // list of cavemen join combat
             fighters.add(caveman); // the attacked cavemen
 

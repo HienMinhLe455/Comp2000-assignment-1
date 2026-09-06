@@ -11,13 +11,13 @@ public class Cave extends Zone {
     }
 
     @Override
-    public void draw(Graphics2D drawing) {
+    public void draw(Graphics2D drawing) { //draws the shapes of the cave. (need to add more detail)
         drawing.setColor(new Color(100, 100, 100));
 
         drawing.fillRect(x, y, length, width);
     }
 
-    public boolean contains(int checkX, int checkY) {
+    public boolean contains(int checkX, int checkY) { //checks to see if a cavemans co-ordinates are within caves co-ordinates
 
 
                 if(checkX >= x && checkX <= x + length && checkY >= y && checkY <= y + width) {
