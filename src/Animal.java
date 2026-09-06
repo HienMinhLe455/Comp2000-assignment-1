@@ -1,6 +1,6 @@
 import java.awt.*;
 
-abstract class Animal { //parent class for all animals
+abstract class Animal { // parent class for all animals
     float health;
     float reproductionCooldown;
     int damage;
@@ -9,25 +9,28 @@ abstract class Animal { //parent class for all animals
     int maxHunger = 600;
     int foodValue = 150;
     boolean isHungry = false;
-    int starvationTimer = 600; 
+    int starvationTimer = 600;
     int defaultStarvationTime = 600;
 
     float speed;
     int direction = Math.clamp(0, -1, 1);
-    int x; //current x position
-    int y; //current y positino
+    int x; // current x position
+    int y; // current y positino
     int dx; // direction or speed for x
     int dy; // direction or speed for y
 
     int width = 40;
     int height = 40;
 
+    public void kill() {
+        health = 0;
+    }
 
     public void takeDamage(float damage) {
         health -= damage;
     }
 
-    public boolean isDead(){
+    public boolean isDead() {
         if (health <= 0 || starvationTimer <= 0) { // if hungry too long => die
             return true;
         } else {
@@ -49,16 +52,16 @@ abstract class Animal { //parent class for all animals
         x += dx;
         y += dy;
 
-        if(x <= 0 || x >= screenWidth) {
+        if (x <= 0 || x >= screenWidth) {
             dx = -dy;
         }
-        if(y <= 0 || y >= screenHeight) {
+        if (y <= 0 || y >= screenHeight) {
             dy = -dy;
         }
 
         // Hunger and dead logic
         if (hunger > 0) {
-            hunger = hunger - 1; // count down hunger 
+            hunger = hunger - 1; // count down hunger
         } else {
             isHungry = true;
         }
@@ -71,7 +74,7 @@ abstract class Animal { //parent class for all animals
         if (attackCooldown > 0) {
             attackCooldown--;
         }
-        
+
     }
 
     void draw(Graphics2D g2) {
@@ -81,20 +84,20 @@ abstract class Animal { //parent class for all animals
     public void drawStats(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.PLAIN, 10));
         g2.setColor(Color.RED);
-    
+
         // Show current health
         String hpText = "HP: " + (int) health;
         g2.drawString(hpText, x, y - 25);
-    
+
         // Show current hunger
         g2.setColor(Color.BLUE);
         String hungerText = "Hunger: " + hunger;
         g2.drawString(hungerText, x, y - 15);
-    
+
         // Show current starvation
         if (isHungry == true) {
             g2.setColor(Color.ORANGE);
-            int secondsLeft = starvationTimer / 60; 
+            int secondsLeft = starvationTimer / 60;
             String starvText = "Dying in: " + secondsLeft + "s (" + starvationTimer + "t)";
             g2.drawString(starvText, x, y - 5);
         }

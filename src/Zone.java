@@ -18,4 +18,6 @@ abstract class Zone {
     public void update() {
         System.out.println("abstract class method to downcast");
     }
+
+    public abstract boolean contains(int checkX, int checkY); //abstract class to downcast to volcano and safe zone
 }

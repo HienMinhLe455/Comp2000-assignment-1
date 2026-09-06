@@ -19,6 +19,8 @@ public class Simulator extends JPanel {
         createCaveman(220, 200);
         createCaveman(500, 500);
         createVolcano(400, 300,150, 40);
+
+
         
         timer = new Timer(16, e -> {
             updateSimulation();
@@ -32,10 +34,19 @@ public class Simulator extends JPanel {
     private void updateSimulation() {
         int screenWidth = getWidth();
         int screenHeight = getHeight();
-
-        for (int j = 0; j < environment.size(); j++) {
+        Volcano volcano = (Volcano) environment.get(0);
+        
+        for (int j = 0; j < environment.size(); j++) { //updates the environment
             environment.get(j).update();
         }
+
+        for(int i = 0; i < animals.size(); i++) {
+            if(volcano.contains(animals.get(i).x, animals.get(i).y)){
+                animals.get(i).kill();
+            }
+        }
+
+
 
         for (int i = 0; i < animals.size(); i++) {
             Animal a = animals.get(i);
@@ -208,7 +219,7 @@ public class Simulator extends JPanel {
         }
         // draws all of the dinosaurs and humans into the scene from animals List()
 
-        for (int i = 0; i < environment.size(); i++) {
+        for (int i = 0; i < environment.size(); i++) { // draws all elements in the environment
             environment.get(i).draw(g2);
         }
     }

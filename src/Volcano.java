@@ -16,7 +16,7 @@ public class Volcano extends Zone {
 
     }
 
-
+    @Override 
     public void update() {
         if(errupting == true && lavaRadius < 500) {
 
@@ -24,6 +24,23 @@ public class Volcano extends Zone {
             }
         }
     
+        @Override
+    public boolean contains(int checkX, int checkY) {
+
+       // if(distance <= lavaRadius) {
+       //     return true;
+      //  } else return false;
+
+
+        if(!errupting) {
+            return false;
+        }
+        double distance = Math.sqrt(((checkX - x) *(checkX - x)) + ((checkY - y) * (checkY - y)));
+        return distance <= lavaRadius;
+
+    }
+
+
 
 
     @Override
