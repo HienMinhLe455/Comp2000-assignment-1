@@ -5,29 +5,143 @@ import java.util.List;
 
 
 public class Simulator extends JPanel {
-    
-
     private List<Animal> animals = new ArrayList<>(); //will contain all the animals in the scene
-
     private final Timer timer;
+
+    private int cavemanAlertRadius = 150;
  
     public Simulator() {
         setBackground(Color.WHITE);
 
         //add some initial dinosaurs and cavemen
         createDinosaur(getWidth()/2, getHeight() /2);
-        createCaveman(10, 100);
-
+        createCaveman(210, 200);
+        createCaveman(220, 200);
+        createCaveman(500, 500);
         
         timer = new Timer(16, e -> {
-                for(int i = 0; i < animals.size(); i++) {
-                    animals.get(i).update(getWidth(), getHeight()); //getWidth and getHeight are the size of window
-                }
-                repaint();
+            updateSimulation();
+            repaint();
+
         });
         timer.start();
     } //timer is the engine for the simulation, repaint() calls paintComponent below to draw everything.
  
+    private void updateSimulation() {
+        int screenWidth = getWidth();
+        int screenHeight = getHeight();
+
+        for (int i = 0; i < animals.size(); i++) {
+            animals.get(i).update(screenWidth, screenHeight); // update animal position
+        }
+
+        for (int i = 0; i < animals.size(); i++) {
+            for (int j = i + 1; j < animals.size(); j++) {
+                Animal a = animals.get(i);
+                Animal b = animals.get(j);
+                
+                // check if animals collide with each other
+                if (a.getBounds().intersects(b.getBounds()) == true) {
+                    handleCollision(a, b);
+                }
+            }
+        }
+
+        for (int i = animals.size() - 1; i >= 0; i--) {
+            if (animals.get(i).isDead() == true) {
+                animals.remove(i); // remove dead animal
+            }
+        }
+    }
+
+    private void handleCollision(Animal a, Animal b) {
+        if (a instanceof Dinosaur && b instanceof Caveman) {
+            Dinosaur dino = (Dinosaur) a;
+            Caveman caveman = (Caveman) b;
+            dinoCavemanCombat(dino, caveman);
+        } 
+        else if (a instanceof Caveman && b instanceof Dinosaur) {
+            Caveman caveman = (Caveman) a;
+            Dinosaur dino = (Dinosaur) b;
+            dinoCavemanCombat(dino, caveman);
+        }
+        else if (a instanceof Dinosaur && b instanceof Dinosaur) {
+            Dinosaur d1 = (Dinosaur) a;
+            Dinosaur d2 = (Dinosaur) b;
+            dinoDinoCombat(d1, d2);
+        }
+    }
+
+    private void dinoCavemanCombat(Dinosaur dino, Caveman caveman) {
+        if (dino.isHungry == true) {
+            List<Caveman> fighters = new ArrayList<>(); // list of cavemen join combat
+            fighters.add(caveman); // the attacked cavemen
+    
+            caveman.takeDamage(dino.damage);
+            dino.takeDamage(caveman.damage);
+    
+            // find cavemen inside AlertRadius to join combat
+            for (int i = 0; i < animals.size(); i++) {
+                Animal other = animals.get(i);
+    
+                if (other instanceof Caveman && other != caveman) {
+                    Caveman ally = (Caveman) other;
+                    double distance = caveman.getDistanceTo(ally);
+    
+                    if (distance <= cavemanAlertRadius) {
+                        dino.takeDamage(ally.damage);
+                        fighters.add(ally);
+                    }
+                }
+            }
+    
+            // if cavemen die => dinosaur eat caveman
+            if (caveman.isDead() == true) {
+                dino.hunger = Math.min(dino.maxHunger, dino.hunger + caveman.foodValue);
+                dino.isHungry = false;
+                dino.starvationTimer = dino.defaultStarvationTime;
+            }
+    
+            // if dinosaur die => caveman eat dinosaur
+            if (dino.isDead() == true) {
+                for (int i = 0; i < fighters.size(); i++) {
+                    Caveman fighter = fighters.get(i);
+    
+                    // if caveman didn't die => receive dinosaur meat
+                    if (fighter.isDead() == false) {
+                        fighter.hunger = Math.min(fighter.maxHunger, fighter.hunger + dino.foodValue);
+                        fighter.isHungry = false;
+                        fighter.starvationTimer = fighter.defaultStarvationTime;
+                    }
+                }
+            }
+        } 
+    }
+
+    private void dinoDinoCombat(Dinosaur d1, Dinosaur d2) {
+        if (d1.isHungry == true) {
+            d2.takeDamage(d1.damage);
+            d1.takeDamage(d2.damage);
+
+            if (d2.isDead() == true) {
+                d1.hunger = Math.min(d1.maxHunger, d1.hunger + d2.foodValue);
+                d1.isHungry = false;
+                d1.starvationTimer = d1.defaultStarvationTime;
+            }
+        } 
+        else if (d2.isHungry == true) {
+            d1.takeDamage(d2.damage);
+            d2.takeDamage(d1.damage);
+
+            if (d1.isDead() == true) {
+                d2.hunger = Math.min(d2.maxHunger, d2.hunger + d1.foodValue);
+                d2.isHungry = false;
+                d2.starvationTimer = d2.defaultStarvationTime;
+            }
+        }
+    }
+
+
     @Override //this sets up the graphics to be able to draw stuff, can draw stuff in other classes with g.rectangle() etc
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

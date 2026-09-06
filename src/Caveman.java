@@ -5,8 +5,10 @@ public class Caveman extends Animal implements AnimalBehaviours{
     // stats can change later for balancing
     private static float defaultHealth = 10f;
     private static int defaultSpeed = 5;
-    private static int defaultHunger = 10; //seconds before dying?
+    //private static int defaultHunger = 10; //seconds before dying?
     private static int defaultDamage = 2;
+    private static int defaultMaxHunger = 1000;
+    private static int defaultFoodValue = 150;
 
     Caveman(){
         setStats();
@@ -16,17 +18,21 @@ public class Caveman extends Animal implements AnimalBehaviours{
     }
 
     Caveman(int spawnX, int spawnY) {
-            setStats();
-            x = spawnX;
-            y = spawnY;
-        }
+        setStats();
+        x = spawnX;
+        y = spawnY;
+        width = 30;
+        height = 50;
+    }
     
         
     @Override
     public void setStats(){
         this.health = defaultHealth;
         this.speed = defaultSpeed;
-        this.hunger = defaultHunger;
+        this.hunger = defaultMaxHunger;
+        this.maxHunger = defaultMaxHunger;
+        this.foodValue = defaultFoodValue;
         this.damage = defaultDamage;
     }
 
@@ -40,18 +46,18 @@ public class Caveman extends Animal implements AnimalBehaviours{
         g2.setColor(Color.BLACK);
  
         // Head
-        g2.drawOval(x, y - 110, 30, 30);
- 
+        g2.drawOval(x, y, 6, 6);
+
         // Body
-        g2.drawLine(x + 15, y - 80, x + 15, y - 20);
- 
+        g2.drawLine(x + 3, y + 6, x + 3, y + 14);
+
         // Arms
-        g2.drawLine(x + 15, y - 65, x - 10, y - 40);
-        g2.drawLine(x + 15, y - 65, x + 40, y - 40);
- 
+        g2.drawLine(x + 3, y + 8, x - 2, y + 12);
+        g2.drawLine(x + 3, y + 8, x + 8, y + 12);
+
         // Legs
-        g2.drawLine(x + 15, y - 20, x - 5, y + 20);
-        g2.drawLine(x + 15, y - 20, x + 35, y + 20);
+        g2.drawLine(x + 3, y + 14, x - 1, y + 20);
+        g2.drawLine(x + 3, y + 14, x + 7, y + 20);
     }
 
 }
