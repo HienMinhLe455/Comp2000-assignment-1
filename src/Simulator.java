@@ -3,50 +3,59 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Simulator extends JPanel {
-    
 
-    private List<Animal> animals = new ArrayList<>(); //will contain all the animals in the scene
+    private List<Animal> animals = new ArrayList<>(); // will contain all the animals in the scene
+
+    private List<Zone> environment = new ArrayList<>();
 
     private final Timer timer;
- 
+
     public Simulator() {
-        setBackground(Color.WHITE);
+        setBackground(Color.GREEN);
 
-        //add some initial dinosaurs and cavemen
-        createDinosaur(getWidth()/2, getHeight() /2);
+        // add some initial dinosaurs and cavemen
+        createDinosaur(getWidth() / 2, getHeight() / 2);
         createCaveman(10, 100);
+        createEnvironment(100, 100, 10);
 
-        
         timer = new Timer(16, e -> {
-                for(int i = 0; i < animals.size(); i++) {
-                    animals.get(i).update(getWidth(), getHeight()); //getWidth and getHeight are the size of window
-                }
-                repaint();
+            for (int i = 0; i < animals.size(); i++) {
+                animals.get(i).update(getWidth(), getHeight()); // getWidth and getHeight are the size of window
+            }
+            repaint();
         });
         timer.start();
-    } //timer is the engine for the simulation, repaint() calls paintComponent below to draw everything.
- 
-    @Override //this sets up the graphics to be able to draw stuff, can draw stuff in other classes with g.rectangle() etc
+    } // timer is the engine for the simulation, repaint() calls paintComponent below
+      // to draw everything.
+
+    @Override // this sets up the graphics to be able to draw stuff, can draw stuff in other
+              // classes with g.rectangle() etc
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    
-        for(int i = 0; i < animals.size(); i++) {
-                    animals.get(i).draw(g2);
-                }
-                //draws all of the dinosaurs and humans into the scene from animals List()
-    }    
-    
-    
-    public void createDinosaur(int spawnX, int spawnY) {
-            animals.add(new Dinosaur(spawnX, spawnY));
+
+        for (int i = 0; i < animals.size(); i++) {
+            animals.get(i).draw(g2);
         }
-    
+        // draws all of the dinosaurs and humans into the scene from animals List()
+
+        for (int i = 0; i < environment.size(); i++) {
+            environment.get(i).draw(g2);
+        }
+    }
+
+    public void createEnvironment(int spawnX, int spawnY, int radius) {
+        environment.add(new Volcano(spawnX, spawnY, radius));
+    }
+
+    public void createDinosaur(int spawnX, int spawnY) {
+        animals.add(new Dinosaur(spawnX, spawnY));
+    }
+
     public void createCaveman(int spawnX, int spawnY) {
         animals.add(new Caveman(spawnX, spawnY));
     }
-    
+
 }
