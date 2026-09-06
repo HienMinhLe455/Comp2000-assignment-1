@@ -17,11 +17,13 @@ public class Simulator extends JPanel {
         // add some initial dinosaurs and cavemen
         createDinosaur(getWidth() / 2, getHeight() / 2);
         createCaveman(10, 100);
-        createEnvironment(100, 100, 10);
+        createVolcano(400, 300,150);
+
 
         timer = new Timer(16, e -> {
             for (int i = 0; i < animals.size(); i++) {
                 animals.get(i).update(getWidth(), getHeight()); // getWidth and getHeight are the size of window
+
             }
             repaint();
         });
@@ -46,7 +48,7 @@ public class Simulator extends JPanel {
         }
     }
 
-    public void createEnvironment(int spawnX, int spawnY, int radius) {
+    public void createVolcano(int spawnX, int spawnY,int radius) {
         environment.add(new Volcano(spawnX, spawnY, radius));
     }
 
