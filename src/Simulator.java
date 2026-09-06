@@ -13,15 +13,13 @@ public class Simulator extends JPanel {
     public Simulator() {
         setBackground(Color.GREEN);
 
-        //add some initial dinosaurs and cavemen
+        // add some initial dinosaurs and cavemen
         createDinosaur(200, 200);
         createCaveman(210, 200);
         createCaveman(220, 200);
         createCaveman(500, 500);
-        createVolcano(400, 300,150, 40);
+        createVolcano(400, 300, 150, 40);
 
-
-        
         timer = new Timer(16, e -> {
             updateSimulation();
             repaint();
@@ -35,18 +33,16 @@ public class Simulator extends JPanel {
         int screenWidth = getWidth();
         int screenHeight = getHeight();
         Volcano volcano = (Volcano) environment.get(0);
-        
-        for (int j = 0; j < environment.size(); j++) { //updates the environment
+
+        for (int j = 0; j < environment.size(); j++) { // updates the environment
             environment.get(j).update();
         }
 
-        for(int i = 0; i < animals.size(); i++) {
-            if(volcano.contains(animals.get(i).x, animals.get(i).y)){
+        for (int i = 0; i < animals.size(); i++) { //checks to see if there are any animals within the volcano's lava range and kills them
+            if (volcano.contains(animals.get(i).x, animals.get(i).y)) {
                 animals.get(i).kill();
             }
         }
-
-
 
         for (int i = 0; i < animals.size(); i++) {
             Animal a = animals.get(i);
@@ -208,20 +204,21 @@ public class Simulator extends JPanel {
         }
     }
 
-    @Override //this sets up the graphics to be able to draw stuff, can draw stuff in other classes with g.rectangle() etc
+    @Override // this sets up the graphics to be able to draw stuff, can draw stuff in other
+              // classes with g.rectangle() etc
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        for (int i = 0; i < environment.size(); i++) { // draws all elements in the environment
+            environment.get(i).draw(g2);
+        }
         for (int i = 0; i < animals.size(); i++) {
             animals.get(i).draw(g2);
         }
         // draws all of the dinosaurs and humans into the scene from animals List()
 
-        for (int i = 0; i < environment.size(); i++) { // draws all elements in the environment
-            environment.get(i).draw(g2);
-        }
     }
 
     public void createVolcano(int spawnX, int spawnY, int radius, int lavaRad) {
