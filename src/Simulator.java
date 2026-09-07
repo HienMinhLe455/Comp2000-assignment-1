@@ -20,6 +20,7 @@ public class Simulator extends JPanel {
         createCaveman(500, 500);
         createVolcano(400, 300, 150, 0);
         createCave(1500,1000);
+        createCow(200, 300);
 
         timer = new Timer(16, e -> {
             updateSimulation();
@@ -39,7 +40,8 @@ public class Simulator extends JPanel {
             environment.get(j).update();
         }
 
-        for (int i = 0; i < animals.size(); i++) { //checks to see if there are any animals within the volcano's lava range and kills them
+        for (int i = 0; i < animals.size(); i++) { // checks to see if there are any animals within the volcano's lava
+                                                   // range and kills them
             if (volcano.contains(animals.get(i).x, animals.get(i).y)) {
                 animals.get(i).kill();
             }
@@ -91,8 +93,9 @@ public class Simulator extends JPanel {
     }
 
     private void dinoCavemanCombat(Dinosaur dino, Caveman caveman) {
-        Cave cave = (Cave) environment.get(1); 
-        if (!cave.contains(caveman.x, caveman.y) && dino.isHungry && dino.attackCooldown == 0 && caveman.attackCooldown == 0) { //added to check if caveman is within the cave safe zone
+        Cave cave = (Cave) environment.get(1);
+        if (!cave.contains(caveman.x, caveman.y) && dino.isHungry && dino.attackCooldown == 0
+                && caveman.attackCooldown == 0) { // added to check if caveman is within the cave safe zone
             List<Caveman> fighters = new ArrayList<>(); // list of cavemen join combat
             fighters.add(caveman); // the attacked cavemen
 
@@ -228,7 +231,7 @@ public class Simulator extends JPanel {
     }
 
     public void createCave(int spawnX, int spawnY) {
-        environment.add(new Cave(spawnX,spawnY));
+        environment.add(new Cave(spawnX, spawnY));
     }
 
     public void createDinosaur(int spawnX, int spawnY) {
@@ -239,4 +242,7 @@ public class Simulator extends JPanel {
         animals.add(new Caveman(spawnX, spawnY));
     }
 
+    public void createCow(int spawnX, int spawnY) {
+        animals.add(new Cow(spawnX, spawnY));
+    }
 }
