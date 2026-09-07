@@ -14,9 +14,10 @@ public class Simulator extends JPanel {
     public Simulator() {
         setBackground(Color.WHITE);
 
-        //add some initial dinosaurs and cavemen
+        //add some initial dinosaurs, caveman and cow
         createDinosaur(getWidth()/2, getHeight() /2);
         createCaveman(10, 100);
+        createCow(200, 300);
 
         
         timer = new Timer(16, e -> {
@@ -48,5 +49,7 @@ public class Simulator extends JPanel {
     public void createCaveman(int spawnX, int spawnY) {
         animals.add(new Caveman(spawnX, spawnY));
     }
-    
+    public void createCow(int spawnX, int spawnY) {
+    animals.add(new Cow(spawnX, spawnY));
+}
 }
