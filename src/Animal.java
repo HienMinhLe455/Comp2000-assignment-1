@@ -83,9 +83,9 @@ abstract class Animal { // parent class for all animals
 
     public void drawStats(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.PLAIN, 10));
-        g2.setColor(Color.RED);
 
         // Show current health
+        g2.setColor(Color.RED);
         String hpText = "HP: " + (int) health;
         g2.drawString(hpText, x, y - 25);
 
