@@ -53,7 +53,7 @@ abstract class Animal { // parent class for all animals
         y += dy;
 
         if (x <= 0 || x >= screenWidth) {
-            dx = -dy;
+            dx = -dx;
         }
         if (y <= 0 || y >= screenHeight) {
             dy = -dy;

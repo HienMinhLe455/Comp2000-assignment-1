@@ -21,7 +21,7 @@ public class Volcano extends Zone {
     @Override
     public void update() { // increases the size of the lava while its errupting
         tickCount++;
-        if (tickCount >= 1000) { // tick count is set to ~10 seconds change accordingly
+        if (tickCount >= 1500) { // tick count is set to ~10 seconds change accordingly
             errupting = true;
         }
         if (errupting && lavaRadius < 500) {

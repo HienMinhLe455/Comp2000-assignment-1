@@ -11,13 +11,14 @@ public class Simulator extends JPanel {
     private int cavemanAlertRadius = 150;
 
     public Simulator() {
-        setBackground(Color.GREEN);
 
         // add some initial dinosaurs and cavemen
-        createDinosaur(200, 200);
+        createDinosaur(100, 200);
+        createDinosaur(100, 50);
         createCaveman(210, 200);
         createCaveman(220, 200);
         createCaveman(500, 500);
+        createCaveman(500, 400);
         createVolcano(400, 300, 150, 0);
         createCave(1500,1000);
         createCow(200, 300);
