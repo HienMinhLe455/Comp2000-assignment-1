@@ -37,56 +37,58 @@ public class Cow extends Animal implements AnimalBehaviours {
     public void draw(Graphics2D g2) {
         // Body (rounded rectangle, boxier than the dinosaur's oval)
         g2.setColor(new Color(180, 130, 90)); // light brown
-        g2.fillRoundRect(x, y + 4, 11, 6, 3, 3);
+        g2.fillRoundRect(x, y + 10, 28, 15, 8, 8);
     
         // Spots
         g2.setColor(new Color(90, 60, 40));
-        g2.fillOval(x + 2, y + 5, 3, 2);
-        g2.fillOval(x + 6, y + 7, 3, 2);
+        g2.fillOval(x + 5, y + 12, 8, 5);
+        g2.fillOval(x + 15, y + 17, 8, 5);
     
         // Head (short, low, no long neck)
         g2.setColor(new Color(180, 130, 90));
-        g2.fillOval(x + 9, y + 3, 4, 4);
+        g2.fillOval(x + 22, y + 7, 10, 10);
     
         // Snout
         g2.setColor(new Color(230, 210, 195));
-        g2.fillOval(x + 12, y + 5, 2, 2);
+        g2.fillOval(x + 30, y + 12, 5, 5);
     
         // Nostrils
         g2.setColor(Color.BLACK);
-        g2.fillOval(x + 12, y + 5, 1, 1);
-        g2.fillOval(x + 13, y + 5, 1, 1);
+        g2.fillOval(x + 31, y + 13, 2, 2);
+        g2.fillOval(x + 33, y + 13, 2, 2);
     
         // Ears (floppy, off to the sides of the head)
         g2.setColor(new Color(160, 110, 75));
-        g2.fillOval(x + 9, y + 2, 2, 1);
-        g2.fillOval(x + 11, y + 2, 2, 1);
+        g2.fillOval(x + 22, y + 5, 4, 3);
+        g2.fillOval(x + 27, y + 5, 4, 3);
     
         // Horns (small, on top of head)
         g2.setColor(new Color(210, 200, 190));
-        g2.fillOval(x + 10, y + 1, 1, 1);
-        g2.fillOval(x + 11, y + 1, 1, 1);
+        g2.fillOval(x + 24, y + 2, 2, 3);
+        g2.fillOval(x + 27, y + 2, 2, 3);
     
         // Eye
         g2.setColor(Color.BLACK);
-        g2.fillOval(x + 11, y + 4, 1, 1);
+        g2.fillOval(x + 27, y + 9, 2, 2);
     
         // Tail (thin curved line, not a triangle)
         g2.setColor(new Color(160, 110, 75));
-        g2.setStroke(new BasicStroke(1));
-        g2.drawLine(x, y + 8, x - 2, y + 10);
-        g2.fillOval(x - 3, y + 9, 1, 1); // tail tuft
+        g2.setStroke(new BasicStroke(2));
+        g2.drawLine(x, y + 20, x - 5, y + 25);
+        g2.fillOval(x - 7, y + 23, 3, 3); // tail tuft
     
         // Legs (four, evenly spaced - reads as a quadruped, not two-legged)
         g2.setColor(new Color(160, 110, 75));
-        g2.fillRect(x + 1, y + 10, 1, 4);
-        g2.fillRect(x + 3, y + 10, 1, 4);
-        g2.fillRect(x + 6, y + 10, 1, 4);
-        g2.fillRect(x + 9, y + 10, 1, 4);
+        g2.fillRect(x + 3, y + 25, 3, 10);
+        g2.fillRect(x + 8, y + 25, 3, 10);
+        g2.fillRect(x + 16, y + 25, 3, 10);
+        g2.fillRect(x + 22, y + 25, 3, 10);
     
         // Udder
         g2.setColor(new Color(230, 180, 180));
-        g2.fillOval(x + 4, y + 9, 3, 2);
+        g2.fillOval(x + 10, y + 22, 7, 5);
         
+        // Stat
+        drawStats(g2);
     }
 }
