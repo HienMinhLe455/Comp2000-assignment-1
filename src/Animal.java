@@ -38,7 +38,7 @@ abstract class Animal { // parent class for all animals
         }
     }
 
-    public Rectangle getBounds() {
+    public Rectangle getBounds() { // a collider
         return new Rectangle(x, y, width, height);
     }
 
