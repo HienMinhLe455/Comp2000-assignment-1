@@ -9,15 +9,14 @@ public class Simulator extends JPanel {
     private final Timer timer;
 
     public Simulator() {
-
-        // add some initial dinosaurs and cavemen
-        createDinosaur(100, 200);
-        createDinosaur(100, 50);
+        createVolcano(400, 300, 150, 0);
+        // add some initial animals
+        createDinosaur(600, 600);
+        createDinosaur(600, 50);
         createCaveman(210, 200);
         createCaveman(220, 200);
         createCaveman(500, 500);
         createCaveman(500, 400);
-        createVolcano(400, 300, 150, 0);
         createCave(1500,1000);
         createCow(200, 300);
 
@@ -97,11 +96,27 @@ public class Simulator extends JPanel {
     }
 
     public void createCave(int spawnX, int spawnY) {
-        environment.add(new Cave(spawnX, spawnY));
+        try {
+            Volcano volcano = (Volcano) environment.get(0);
+            if (volcano.contains(spawnX, spawnY)) {
+                throw new IllegalArgumentException("Cannot spawn animals in volcano");
+            }
+            environment.add(new Cave(spawnX, spawnY));
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
     public void createDinosaur(int spawnX, int spawnY) {
-        animals.add(new Dinosaur(spawnX, spawnY));
+        try {
+            Volcano volcano = (Volcano) environment.get(0);
+            if (volcano.contains(spawnX, spawnY)) {
+                throw new IllegalArgumentException("Cannot spawn animals in volcano");
+            }
+            animals.add(new Dinosaur(spawnX, spawnY));
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
     public void createCaveman(int spawnX, int spawnY) {

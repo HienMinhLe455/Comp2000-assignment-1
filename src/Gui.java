@@ -7,25 +7,33 @@ import java.awt.event.ActionListener;
 public class Gui extends JFrame implements AppConstants {
     public Gui() {
         super("Predator-Prey: Team 2");
-        setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        setLocationRelativeTo(null); // centres the window
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-        setLayout(null);
+        try {
+            setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            setLocationRelativeTo(null); // centres the window
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setResizable(false);
+            setLayout(null);
 
-        // Title text
-        JLabel title = new JLabel("Predator-Prey: Team 2 Final Project");
-        title.setFont(DEFAULT_FONT);
-        title.setBounds(SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 4, 300, 50);
-        add(title);
+            // Title text
+            JLabel title = new JLabel("Predator-Prey: Team 2 Final Project");
+            title.setFont(DEFAULT_FONT);
+            title.setBounds(SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 4, 300, 50);
+            add(title);
 
-        // instantiate buttons
-        JButton startGame = startButton();
-        JButton quitGame = quitButton();
-        add(startGame);
-        add(quitGame);
-        // Update / redraw screen
-        setVisible(true);
+            // instantiate buttons
+            JButton startGame = startButton();
+            JButton quitGame = quitButton();
+            add(startGame);
+            add(quitGame);
+            // Update / redraw screen
+            setVisible(true);
+        } catch (HeadlessException e) {
+            System.err.println("Error: Graphical environment is not supported on this platform.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurred while initializing the GUI: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private JButton startButton() {
